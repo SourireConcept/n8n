@@ -1,7 +1,18 @@
 {
   "version": 2,
+  "env": {
+    "N8N_HOST": "https://n8n-l39dqcfyu-nasros-projects-3723353e.vercel.app",
+    "N8N_PORT": "5678",
+    "N8N_PROTOCOL": "https",
+    "EXECUTIONS_MODE": "regular",
+    "DB_TYPE": "postgres",
+    "DB_POSTGRESDB_HOST": "@supabase-host",
+    "DB_POSTGRESDB_USER": "@supabase-user",
+    "DB_POSTGRESDB_PASSWORD": "@supabase-password",
+    "DB_POSTGRESDB_DATABASE": "postgres"
+  },
   "builds": [
-    { "src": "start-n8n.js", "use": "@vercel/node" }
+    { "src": "start-n8n.js", "use": "@vercel/node", "config": { "maxDuration": 120 } }
   ],
   "routes": [
     { "src": "/(.*)", "dest": "start-n8n.js" }
