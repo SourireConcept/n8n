@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 const { spawn } = require('child_process');
 
-console.log('Démarrage de n8n...');
+const port = process.env.PORT || 5678;
 
-const n8nProcess = spawn('pnpm', ['--filter', '@n8n/n8n', 'start'], {
+const n8nProcess = spawn('pnpm', ['--filter', '@n8n/n8n', 'start', '--port', port], {
   stdio: 'inherit',
   shell: true,
   env: process.env,
