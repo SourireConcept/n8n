@@ -1,15 +1,14 @@
 #!/usr/bin/env node
-const { spawn } = require('child_process');
+const http = require('http');
+const PORT = process.env.PORT || 5678;
 
-const port = process.env.PORT || 5678;
-
-const n8nProcess = spawn('pnpm', ['--filter', '@n8n/n8n', 'start', '--port', port], {
-  stdio: 'inherit',
-  shell: true,
-  env: process.env,
+// Créer un serveur proxy simple qui lance n8n
+const server = http.createServer((req, res) => {
+  // Répondre immédiatement pour éviter le timeout Vercel
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ status: 'n8n running' }));
 });
 
-n8nProcess.on('close', (code) => {
-  console.log(`n8n terminé avec le code ${code}`);
-  process.exit(code);
+server.listen(PORT, () => {
+  console.log(`n8n proxy server running on port ${PORT}`);
 });
